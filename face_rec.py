@@ -18,7 +18,7 @@ for fichier in dossier:
 
 def reconnaitre_visage(image_test):
     image = fr.load_image_file(image_test)
-    visage = fr.face_encoding(image)
+    visage = fr.face_encodings(image)
 
     if len(visage) > 0:
         visage_test = fr.compare_faces(encoding_connues, visage[0])
