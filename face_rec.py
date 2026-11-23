@@ -18,18 +18,28 @@ for fichier in dossier:
 
 def reconnaitre_visage(image_test):
     image = fr.load_image_file(image_test)
-    visage = fr.face_encodings(image)
+    visages = fr.face_encodings(image)
+    positions = fr.face_locations(image)
 
-    if len(visage) > 0:
-        visage_test = fr.compare_faces(encoding_connues, visage[0])
+    for visage, position in zip(visages, positions):
+        visage_test = fr.compare_faces(encoding_connues, visage)
 
-    if True in visage_test:
-        position = visage_test.index(True)
-        nom = noms_connues[position]
-        return nom
-    else:
-        return "Inconnu"
+        if True in visage_test:
+            index = visage_test.index(True)
+            nom = noms_connues[index]
+        else:
+            nom = "Inconnu"
+
+        top, right, bottom, left = position
+
+        cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
+        cv2.putText(image, nom, (left, top - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    cv2.imshow("Face Recognition", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 image_test = input("Quelle image veux-tu analyser ? ")
-resultat = reconnaitre_visage(image_test)
-print(resultat)
+reconnaitre_visage(image_test)
