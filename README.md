@@ -1,8 +1,8 @@
 # Documentation
 
-Welcome to the FaceRec documentation.
+Welcome to the Face Recognition documentation.
 
-This directory contains technical documentation covering the installation, usage, architecture, and development of FaceRec.
+This directory contains technical documentation covering the installation, usage, architecture, and development of this Face Recognition.
 
 ## Contents
 
